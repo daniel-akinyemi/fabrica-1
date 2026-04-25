@@ -1,26 +1,149 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  /* — Palette — */
+  --color-ink: #0a0a0a;
+  --color-cream: #f5f1e8;
+  --color-paper: #ffffff;
+  --color-bone: #e8e2d5;
+  --color-muted: #5a5a5a;
+
+  --color-green-primary: #1f7a4d;
+  --color-green-deep: #0f4a2e;
+  --color-green-soft: #d6ead8;
+
+  --color-clay: #d9482e;     /* split-comp — errors/urgency */
+  --color-amber: #f4a02c;    /* triad — highlights */
+  --color-magenta: #e63e89;  /* loud accent — sparingly */
+
+  /* Semantic aliases */
+  --color-bg: var(--color-cream);
+  --color-fg: var(--color-ink);
+  --color-border: var(--color-ink);
+  --color-primary: var(--color-green-primary);
+  --color-primary-deep: var(--color-green-deep);
+  --color-primary-soft: var(--color-green-soft);
+
+  /* — Type — */
+  --font-display: var(--font-archivo-black), system-ui, sans-serif;
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
+
+  /* — Brutalist shadows (no blur, solid offset) — */
+  --shadow-brutal-xs: 2px 2px 0 0 var(--color-ink);
+  --shadow-brutal-sm: 3px 3px 0 0 var(--color-ink);
+  --shadow-brutal: 5px 5px 0 0 var(--color-ink);
+  --shadow-brutal-lg: 8px 8px 0 0 var(--color-ink);
+  --shadow-brutal-green: 5px 5px 0 0 var(--color-green-primary);
+  --shadow-brutal-amber: 5px 5px 0 0 var(--color-amber);
+  --shadow-brutal-clay: 5px 5px 0 0 var(--color-clay);
+
+  /* — Radius (kept tiny on purpose) — */
+  --radius-xs: 2px;
+  --radius-sm: 3px;
+  --radius: 4px;
+
+  /* — Spacing extras — */
+  --spacing-section: 6rem;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Base */
+html, body {
+  height: 100%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-bg);
+  color: var(--color-fg);
+  font-family: var(--font-sans);
+  font-feature-settings: "ss01", "cv11";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Selection */
+::selection {
+  background: var(--color-green-primary);
+  color: var(--color-cream);
+}
+
+/* Focus ring — brutal, no glow */
+:where(a, button, input, select, textarea, [role="button"]):focus-visible {
+  outline: 3px solid var(--color-green-primary);
+  outline-offset: 2px;
+}
+
+/* — Reusable brutalist primitives — */
+
+/* Hard-edged border + offset shadow */
+.brutal-card {
+  background: var(--color-paper);
+  border: 2px solid var(--color-ink);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-brutal);
+  transition: transform 120ms ease, box-shadow 120ms ease;
+}
+
+.brutal-card-hover:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: var(--shadow-brutal-lg);
+}
+
+/* Press effect — button "depresses" into the page */
+.brutal-press {
+  transition: transform 80ms ease, box-shadow 80ms ease;
+}
+.brutal-press:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: var(--shadow-brutal-lg);
+}
+.brutal-press:active {
+  transform: translate(2px, 2px);
+  box-shadow: var(--shadow-brutal-xs);
+}
+
+/* Marquee strip — for the "hero ribbon" */
+.brutal-strip {
+  background: var(--color-ink);
+  color: var(--color-cream);
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* Diagonal stripe pattern — fabric placeholder */
+.swatch-stripes {
+  background-image: repeating-linear-gradient(
+    45deg,
+    currentColor 0,
+    currentColor 8px,
+    transparent 8px,
+    transparent 16px
+  );
+}
+
+.swatch-grid {
+  background-image:
+    linear-gradient(to right, currentColor 1px, transparent 1px),
+    linear-gradient(to bottom, currentColor 1px, transparent 1px);
+  background-size: 12px 12px;
+}
+
+.swatch-dots {
+  background-image: radial-gradient(currentColor 2px, transparent 2.5px);
+  background-size: 12px 12px;
+}
+
+.swatch-weave {
+  background-image:
+    repeating-linear-gradient(0deg, currentColor 0 2px, transparent 2px 6px),
+    repeating-linear-gradient(90deg, currentColor 0 2px, transparent 2px 6px);
+}
+
+.swatch-zigzag {
+  background:
+    linear-gradient(135deg, currentColor 25%, transparent 25%) 0 0/14px 14px,
+    linear-gradient(225deg, currentColor 25%, transparent 25%) 0 0/14px 14px,
+    linear-gradient(315deg, currentColor 25%, transparent 25%) 0 0/14px 14px,
+    linear-gradient(45deg, currentColor 25%, transparent 25%) 0 0/14px 14px;
 }
