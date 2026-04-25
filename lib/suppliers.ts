@@ -1,4 +1,4 @@
-import type { FabricType, LagosArea } from "./fabrics";
+import { MOQ_BANDS, type FabricType, type LagosArea } from "./fabrics";
 
 export type SwatchPattern = "solid" | "stripes" | "grid" | "dots" | "weave" | "zigzag";
 
@@ -332,3 +332,28 @@ export const accentRingClass: Record<Supplier["accentColor"], string> = {
   magenta: "shadow-brutal",
   ink: "shadow-brutal",
 };
+
+export interface SupplierFilters {
+  fabric?: string;
+  area?: string;
+  moq?: string;
+  verified?: string;
+}
+
+export function filterSuppliers(
+  suppliers: Supplier[],
+  f: SupplierFilters
+): Supplier[] {
+  return suppliers.filter((s) => {
+    if (f.fabric && !s.fabrics.includes(f.fabric as FabricType)) return false;
+    if (f.area && s.area !== f.area) return false;
+    if (f.moq) {
+      const band = MOQ_BANDS.find((b) => b.id === f.moq);
+      if (band && (s.moqMeters < band.min || s.moqMeters > band.max)) {
+        return false;
+      }
+    }
+    if (f.verified === "1" && !s.verified) return false;
+    return true;
+  });
+}

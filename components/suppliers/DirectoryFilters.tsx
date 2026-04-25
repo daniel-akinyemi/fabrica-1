@@ -183,30 +183,3 @@ function Chip({
   );
 }
 
-// Filter helper used by the server-side page.
-export function filterSuppliers<T extends {
-  fabrics: readonly string[] | string[];
-  area: string;
-  moqMeters: number;
-  verified: boolean;
-}>(
-  suppliers: T[],
-  searchParams: { fabric?: string; area?: string; moq?: string; verified?: string }
-): T[] {
-  return suppliers.filter((s) => {
-    if (searchParams.fabric && !s.fabrics.includes(searchParams.fabric)) {
-      return false;
-    }
-    if (searchParams.area && s.area !== searchParams.area) {
-      return false;
-    }
-    if (searchParams.moq) {
-      const band = MOQ_BANDS.find((b) => b.id === searchParams.moq);
-      if (band) {
-        if (s.moqMeters < band.min || s.moqMeters > band.max) return false;
-      }
-    }
-    if (searchParams.verified === "1" && !s.verified) return false;
-    return true;
-  });
-}

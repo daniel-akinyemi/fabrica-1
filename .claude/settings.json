@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run *)",
+      "Bash(curl -s -o /dev/null -w \"/ → %{http_code}\\\\n\" http://localhost:3000/)",
+      "Bash(curl -s -o /dev/null -w \"/suppliers → %{http_code}\\\\n\" http://localhost:3000/suppliers)",
+      "Bash(curl -s -o /dev/null -w \"/suppliers/mama-tope-textiles → %{http_code}\\\\n\" http://localhost:3000/suppliers/mama-tope-textiles)",
+      "Bash(curl -s -o /dev/null -w \"/suppliers/mama-tope-textiles/rfq → %{http_code}\\\\n\" http://localhost:3000/suppliers/mama-tope-textiles/rfq)",
+      "Bash(curl -s http://localhost:3000/suppliers)",
+      "Bash(curl -s -o /dev/null -w \"/suppliers?fabric=Lace&area=Balogun → %{http_code}\\\\n\" \"http://localhost:3000/suppliers?fabric=Lace&area=Balogun\")",
+      "Bash(curl -s -o /dev/null -w \"/suppliers/balogun-base-fabrics → %{http_code}\\\\n\" http://localhost:3000/suppliers/balogun-base-fabrics)",
+      "Bash(curl -s -o /dev/null -w \"/suppliers/balogun-base-fabrics/rfq → %{http_code}\\\\n\" http://localhost:3000/suppliers/balogun-base-fabrics/rfq)",
+      "Bash(curl -s -o /dev/null -w \"/suppliers/does-not-exist → %{http_code}\\\\n\" http://localhost:3000/suppliers/does-not-exist)",
+      "Bash(curl -s \"http://localhost:3000/suppliers?fabric=Lace\")",
+      "Bash(curl -s \"http://localhost:3000/suppliers\")"
+    ]
+  }
+}

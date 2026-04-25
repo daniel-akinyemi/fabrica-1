@@ -1,10 +1,7 @@
 import type { Metadata } from "next";
-import { SUPPLIERS } from "@/lib/suppliers";
+import { SUPPLIERS, filterSuppliers } from "@/lib/suppliers";
 import { SupplierCard } from "@/components/suppliers/SupplierCard";
-import {
-  DirectoryFilters,
-  filterSuppliers,
-} from "@/components/suppliers/DirectoryFilters";
+import { DirectoryFilters } from "@/components/suppliers/DirectoryFilters";
 import { Tag } from "@/components/ui/Tag";
 import { ButtonLink } from "@/components/ui/Button";
 
